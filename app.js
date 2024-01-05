@@ -123,7 +123,7 @@ function displayMenuButtons() {
   );
   const categoryBtns = categories
     .map(function (category) {
-      return `<button type="button" class="filter-btn" data-id=${category}>
+      return `<button type="button" class="filter-btn ${category==='all' && 'selected'}" data-id=${category}>
           ${category}
         </button>`;
     })
@@ -133,8 +133,16 @@ function displayMenuButtons() {
   const filterBtns = btnContainer.querySelectorAll(".filter-btn");
   console.log(filterBtns);
 
-  filterBtns.forEach(function (btn) {
+  const removeFunc=()=>{
+    filterBtns.forEach(function(btn){
+      btn.classList.remove('selected');
+    })
+  }
+
+  filterBtns.forEach(function (btn) { 
     btn.addEventListener("click", function (e) {
+      removeFunc();
+      btn.classList.add('selected');
       // console.log(e.currentTarget.dataset);
       const category = e.currentTarget.dataset.id;
       const menuCategory = menu.filter(function (menuItem) {
